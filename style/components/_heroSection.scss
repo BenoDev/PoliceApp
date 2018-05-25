@@ -1,0 +1,52 @@
+.hero-section {
+	position: relative;
+
+	background-image: url('../assets/img/hero-img.jpg');
+	background-size: cover;
+	background-position: center;
+	height: 80vh;
+	background-attachment: fixed;
+	width: 100%;
+
+	margin-bottom: 5rem;
+
+	&__text-box {
+		position: absolute;
+		top: 20vh;
+		left: 5vw;
+		color: white;
+		background-color: transparent;
+		backface-visibility: hidden;
+
+		width: 25%;
+		// height: 20vh;
+		// background-color: #ccc;
+		border-radius: 2px;
+		text-align: left;
+
+		box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+	}
+	&__heading {
+		font-size: 2.5rem;
+		font-weight: 400;
+		margin-bottom: 1.5rem;
+	}
+
+	&__paragraph {
+		font-size: 1.2rem;
+		font-weight: 300;
+	}
+	&__button {
+		border: none;
+		color: white;
+		font-size: 1.3rem;
+		font-weight: 600;
+		padding: 1rem 2rem;
+		border-radius: 1px;
+		margin-top: 3rem;
+
+		background-color: black;
+
+		border: none;
+	}
+}

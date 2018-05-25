@@ -1,0 +1,30 @@
+.product-preview {
+	width: 12rem;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+	margin: 0 3rem;
+	margin-bottom: 2rem;
+	cursor: pointer;
+
+	&__image {
+		width: 100%;
+		border-radius: 5px;
+		margin-bottom: 1rem;
+		transition: all 0.3s;
+		box-shadow: 2px 3px 5px rgba(#000, 0.1);
+
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
+	&__description {
+		font-size: 1.4rem;
+	}
+	&__price {
+	}
+}
