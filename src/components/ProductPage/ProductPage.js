@@ -18,27 +18,28 @@ class ProductPage extends Component {
 					const images = data.node.images.edges.map(image => {
 						return {
 							id: image.node.id,
-							url: image.node.originalSrc
+							original: image.node.originalSrc,
+							thumbnail: image.node.originalSrc
 						};
 					});
 
-					const variants = data.node.variants.edges.map(variant => {
-						return {
-							id: variant.node.id,
-							title: variant.node.title,
-							availableForSale: variant.node.availableForSale,
-							price: variant.node.price
-						};
-					});
+					// const variants = data.node.variants.edges.map(variant => {
+					// 	return {
+					// 		id: variant.node.id,
+					// 		title: variant.node.title,
+					// 		availableForSale: variant.node.availableForSale,
+					// 		price: variant.node.price
+					// 	};
+					// });
 
 					return (
 						<Fragment>
-							<ProductGallery images={images} />
 							<ProductInfo
+								images={images}
 								title={data.node.title}
 								options={data.node.options}
 								description={data.node.description}
-								variants={variants}
+								variants={data.node.variants}
 								selectedOptions={data.node.selectedOptions}
 							/>
 						</Fragment>
@@ -59,7 +60,7 @@ const GET_PRODUCT_BY_ID = gql`
 			id
 			... on Product {
 				title
-				images(first: 4) {
+				images(first: 5) {
 					edges {
 						node {
 							id
@@ -84,6 +85,10 @@ const GET_PRODUCT_BY_ID = gql`
 								name
 								value
 							}
+							image {
+								originalSrc
+								id
+							}
 						}
 					}
 				}
@@ -93,3 +98,15 @@ const GET_PRODUCT_BY_ID = gql`
 `;
 
 export default ProductPage;
+
+// {
+
+// 					const images = data.node.images.edges.map(image => {
+// 						return {
+// 							id: image.node.id,
+// 							url: image.node.originalSrc
+// 						};
+// 					});
+
+// 					<ProductGallery images={images} />
+// }
