@@ -6,6 +6,7 @@ class productInfo extends Component {
 		// selectedOptions: {},
 		// images: {},
 		// selectedVariant: {}
+		//selectedVariantQuantity
 	};
 
 	componentWillMount() {
@@ -37,6 +38,7 @@ class productInfo extends Component {
 					id={option.name}
 					key={option.id}
 					value={this.state.selectedOptions[option]}
+					className="product__select"
 				>
 					{option.values.map(value => {
 						return (
@@ -54,7 +56,6 @@ class productInfo extends Component {
 	}
 
 	findImage = variantId => {
-		console.log(this.state.images, variantId);
 		const imageIndex = this.state.images.findIndex(image => {
 			return image.id === variantId;
 		});
@@ -84,32 +85,50 @@ class productInfo extends Component {
 		);
 	};
 
+	onQuantityChange = event => {
+		this.setState({ selectedVariantQuantity: event.target.value });
+	};
+
 	render() {
 		let variant =
 			this.state.selectedVariant || this.props.variants.edges[0].node;
+		let variantQuantity = this.state.selectedVariantQuantity || 1;
 
 		return (
-			<div className="product-info">
-				<div className="product-info__photo-gallery">
+			<div className="product">
+				<div className="product__photo-gallery">
 					<ImageGallery
 						ref={i => (this._imageGallery = i)}
 						items={this.state.images}
 						thumbnailPosition="left"
 					/>
 				</div>
-				<div className="product-info__content">
-					<h2 className="product-info__title">{this.props.title}</h2>
-					<p className="product-info__description">
-						{this.props.description}
-					</p>
+				<div className="product__content">
+					<h2 className="product__title">{this.props.title}</h2>
+					<p className="product__price">Prezzo : {variant.price}€</p>
 					{this.generateSelectedElement()}
+					<label className="product__quantity">
+						Quantità
+						<input
+							min="1"
+							type="number"
+							defaultValue={variantQuantity}
+							onChange={this.onQuantityChange}
+						/>
+					</label>
+
 					<button
+						className="product__button"
 						onClick={() => {
 							console.log(variant);
 						}}
 					>
 						Checkout
 					</button>
+					<div className="product__description">
+						<h3>Product Desctipion</h3>
+						<p>{this.props.description}</p>
+					</div>
 				</div>
 			</div>
 		);

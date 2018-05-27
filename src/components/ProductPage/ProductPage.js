@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import ProductGallery from '../products/productGallery';
-import ProductInfo from '../products/productInfo';
+// import ProductGallery from '../products/productGallery';
+import Product from '../products/product';
 
 class ProductPage extends Component {
 	showProduct() {
@@ -34,7 +34,7 @@ class ProductPage extends Component {
 
 					return (
 						<Fragment>
-							<ProductInfo
+							<Product
 								images={images}
 								title={data.node.title}
 								options={data.node.options}

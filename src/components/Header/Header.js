@@ -15,8 +15,8 @@ export default () => {
 				</div>
 				<div className="header__list--center">
 					<li className="header__item">
-						<Link to="/shop">
-							<a className="header__link">Accessori</a>
+						<Link className="header__link" to="/shop">
+							Accessori
 						</Link>
 					</li>
 					<li className="header__item">
@@ -25,9 +25,9 @@ export default () => {
 						</a>
 					</li>
 					<li className="header__item">
-						<a className="header__link" href="#">
-							Promo
-						</a>
+						<Link className="header__link" to="/Checkout">
+							Checkout
+						</Link>
 					</li>
 				</div>
 				<div className="header__list--right">
