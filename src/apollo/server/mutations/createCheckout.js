@@ -11,6 +11,15 @@ export default gql`
 						node {
 							title
 							quantity
+							variant {
+								id
+								title
+								image {
+									id
+									originalSrc
+								}
+								price
+							}
 						}
 					}
 				}

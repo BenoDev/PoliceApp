@@ -25,8 +25,8 @@ export default () => {
 						</a>
 					</li>
 					<li className="header__item">
-						<Link className="header__link" to="/Checkout">
-							Checkout
+						<Link className="header__link" to="/cart">
+							Carrello
 						</Link>
 					</li>
 				</div>

@@ -6,12 +6,13 @@ export default (_, { checkout }, { cache }) => {
 
 	const data = {
 		checkout: {
+			...previousState.checkout,
 			...checkout.data
 		}
 	};
 	console.log(data, 'hi');
 
 	cache.writeData({ query, data });
-	console.log(cache.readQuery({ query }));
+	console.log(cache.readQuery({ query }), 'resolver');
 	return null;
 };
