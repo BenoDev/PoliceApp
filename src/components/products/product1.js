@@ -24,7 +24,7 @@ class product extends Component {
 		console.log(res, 'Hi');
 		const data = res.data.checkoutLineItemsAdd.checkout;
 
-		this.props.updateCheckout({ variables: { checkout: { data } } });
+		await this.props.updateCheckout({ variables: { checkout: { data } } });
 	};
 
 	componentWillMount() {

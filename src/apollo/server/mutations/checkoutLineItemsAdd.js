@@ -40,7 +40,7 @@ export default gql`
       checkout {
         id
         webUrl
-        lineItems(first: 3) {
+        lineItems(first: 250) {
           edges {
             node {
               id

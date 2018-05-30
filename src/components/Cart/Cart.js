@@ -10,7 +10,10 @@ class Cart extends Component {
 	renderCartItems() {
 		console.log(this.props);
 		if (!this.props.checkout.id) {
-			return <div>Loading</div>;
+			return <div>Errore Caricamento Carrello</div>;
+		}
+		if (this.props.checkout.lineItems.edges.length < 1) {
+			return <div>Il tuo Carrello è vuoto</div>;
 		}
 
 		return this.props.checkout.lineItems.edges.map(lineItem => {
@@ -37,8 +40,24 @@ class Cart extends Component {
 		return (
 			<div className="cart">
 				<p className="cart__text">Il tuo Carrello</p>
+				<div className="cart__head">
+					<span className="cart__head--item cart__head--item-1">
+						Articolo
+					</span>
+					<span className="cart__head--item cart__head--item-2">
+						Taglia
+					</span>
+					<span className="cart__head--item cart__head--item-3">
+						Colore
+					</span>
+					<span className="cart__head--item cart__head--item-4">
+						Unità
+					</span>
+					<span className="cart__head--item cart__head--item-5">
+						Prezzo
+					</span>
+				</div>
 				<div>{this.renderCartItems()}</div>
-				<CartItem />
 			</div>
 		);
 	}

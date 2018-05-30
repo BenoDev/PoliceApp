@@ -9,12 +9,14 @@ import HomePage from './components/HomePage/HomePage';
 import ShopPage from './components/Shop/Shop';
 import ProductPage from './components/ProductPage/ProductPage';
 import Cart from './components/Cart/Cart';
+import MiniCart from './components/Cart/MiniCart';
 import Checkout from './components/Checkout/Checkout';
 
-import { graphql, compose } from 'react-apollo';
+import { Query, graphql, compose } from 'react-apollo';
 
 import updateCheckout from './apollo/client/mutations/updateCheckout';
 // import getCheckout from '../../apollo/client/queries/getCheckout';
+import getCartStatus from './apollo/client/queries/getCartStatus';
 import createCheckout from './apollo/server/mutations/createCheckout';
 
 class App extends Component {
@@ -41,12 +43,14 @@ class App extends Component {
 			<BrowserRouter>
 				<div className="container">
 					<Header />
+					{this.props.cart.isOpen ? <MiniCart /> : null}
 					<Route exact path="/" component={HomePage} />
 					<Route exact path="/shop" component={ShopPage} />
 					<Route exact path="/product/:id" component={ProductPage} />
 					<Route exact path="/cart" component={Cart} />
 					<Route exact path="/checkout" component={Checkout} />
 					<Footer />
+					}
 				</div>
 			</BrowserRouter>
 		);
@@ -55,5 +59,10 @@ class App extends Component {
 
 export default compose(
 	graphql(createCheckout, { name: 'createCheckout' }),
-	graphql(updateCheckout, { name: 'updateCheckout' })
+	graphql(updateCheckout, { name: 'updateCheckout' }),
+	graphql(getCartStatus, {
+		props: ({ data: { cart } }) => ({
+			cart
+		})
+	})
 )(App);
