@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import query from '../client/queries/getCheckout';
 
 export default (_, { checkout }, { cache }) => {

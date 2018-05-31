@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import ImageGallery from 'react-image-gallery';
+import React, { Component } from "react";
+import ImageGallery from "react-image-gallery";
 
-import CheckoutLineItemsAdd from '../../apollo/server/mutations/checkoutLineItemsAdd.js';
-import UpdateCheckout from '../../apollo/client/mutations/updateCheckout';
-import getCheckout from '../../apollo/client/queries/getCheckout';
-import { graphql, compose } from 'react-apollo';
+import CheckoutLineItemsAdd from "../../apollo/server/mutations/checkoutLineItemsAdd.js";
+import UpdateCheckout from "../../apollo/client/mutations/updateCheckout";
+import getCheckout from "../../apollo/client/queries/getCheckout";
+import { graphql, compose } from "react-apollo";
 
 class product extends Component {
 	state = {
@@ -15,13 +15,14 @@ class product extends Component {
 	};
 
 	onAddToCart = async (variantId, quantity) => {
+		console.log(variantId);
 		const res = await this.props.checkoutLineItemsAdd({
 			variables: {
 				checkoutId: this.props.checkout.id,
-				lineItems: [{ variantId, quantity: 1 }]
+				lineItems: [{ variantId, quantity }]
 			}
 		});
-		console.log(res, 'Hi');
+		console.log(res, "Hi");
 		const data = res.data.checkoutLineItemsAdd.checkout;
 
 		this.props.updateCheckout({ variables: { checkout: { data } } });
@@ -139,7 +140,10 @@ class product extends Component {
 					<button
 						className="product__button"
 						onClick={() => {
-							this.onAddToCart(variant.id, variantQuantity);
+							this.onAddToCart(
+								variant.id,
+								parseInt(variantQuantity)
+							);
 						}}
 					>
 						Add to Cart
@@ -156,8 +160,8 @@ class product extends Component {
 }
 
 export default compose(
-	graphql(CheckoutLineItemsAdd, { name: 'checkoutLineItemsAdd' }),
-	graphql(UpdateCheckout, { name: 'updateCheckout' }),
+	graphql(CheckoutLineItemsAdd, { name: "checkoutLineItemsAdd" }),
+	graphql(UpdateCheckout, { name: "updateCheckout" }),
 	graphql(getCheckout, {
 		props: ({ data: { checkout } }) => ({
 			checkout

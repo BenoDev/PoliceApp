@@ -18,6 +18,8 @@ import updateCheckout from './apollo/client/mutations/updateCheckout';
 // import getCheckout from '../../apollo/client/queries/getCheckout';
 import getCartStatus from './apollo/client/queries/getCartStatus';
 import createCheckout from './apollo/server/mutations/createCheckout';
+import switchCart from './apollo/client/mutations/switchCart'
+
 
 class App extends Component {
 	componentDidMount() {
@@ -42,8 +44,8 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<div className="container">
-					<Header />
-					{this.props.cart.isOpen ? <MiniCart /> : null}
+					<Header switchCart={this.props.switchCart} />
+					{this.props.cart.isOpen ? <MiniCart switchCart={this.props.switchCart}/> : null}
 					<Route exact path="/" component={HomePage} />
 					<Route exact path="/shop" component={ShopPage} />
 					<Route exact path="/product/:id" component={ProductPage} />
@@ -60,6 +62,7 @@ class App extends Component {
 export default compose(
 	graphql(createCheckout, { name: 'createCheckout' }),
 	graphql(updateCheckout, { name: 'updateCheckout' }),
+	graphql(switchCart, { name: 'switchCart' }),
 	graphql(getCartStatus, {
 		props: ({ data: { cart } }) => ({
 			cart

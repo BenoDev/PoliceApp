@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import MiniCartItem from './miniCartItem';
-import { Scrollbars } from 'react-custom-scrollbars';
+import React, { Component } from "react";
+import MiniCartItem from "./miniCartItem";
+import { Scrollbars } from "react-custom-scrollbars";
 
-import { graphql, compose } from 'react-apollo';
+import { graphql, compose } from "react-apollo";
 
-import getCartStatus from '../../apollo/client/queries/getCartStatus';
-import getCheckout from '../../apollo/client/queries/getCheckout';
+// import getCartStatus from '../../apollo/client/queries/getCartStatus';
+import getCheckout from "../../apollo/client/queries/getCheckout";
 
 class MiniCart extends Component {
 	renderCartItems() {
@@ -40,19 +40,20 @@ class MiniCart extends Component {
 	}
 	render() {
 		return (
-			<Scrollbars
-				style={{
-					width: '20rem',
-					height: '20rem',
-					position: 'fixed',
-					zIndex: 20,
-					top: '8rem',
-					right: '0',
-					backgroundColor: '#bbb'
-				}}
-			>
-				<div className="mini-cart">{this.renderCartItems()}</div>
-			</Scrollbars>
+			<div className="mini-cart" onMouseLeave={this.props.switchCart}>
+				<Scrollbars
+					style={{
+						width: "100%",
+						height: "20rem",
+						position: "relative",
+						backgroundColor: "#bbb"
+					}}
+				>
+					<div className="mini-cart__product">
+						{this.renderCartItems()}
+					</div>
+				</Scrollbars>
+			</div>
 		);
 	}
 }

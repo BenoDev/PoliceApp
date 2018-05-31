@@ -1,7 +1,9 @@
 import UpdateCheckoutResolver from './updateCheckoutResolver';
+import switchCartResolver from './switchCartResolver';
 
 export default {
 	Mutation: {
-		updateCheckout: UpdateCheckoutResolver
+		updateCheckout: UpdateCheckoutResolver,
+		switchCart : switchCartResolver
 	}
 };
