@@ -1,4 +1,4 @@
-import query from '../client/queries/getCheckout';
+import query from "../client/queries/getCheckout";
 
 export default (_, { checkout }, { cache }) => {
 	const previousState = cache.readQuery({ query });
@@ -9,9 +9,10 @@ export default (_, { checkout }, { cache }) => {
 			...checkout.data
 		}
 	};
-	console.log(data, 'hi');
+	console.log(data, "resolver  update checkout data");
 
 	cache.writeData({ query, data });
-	console.log(cache.readQuery({ query }), 'resolver');
+
+	console.log(cache.readQuery({ query }), "resolver");
 	return null;
 };

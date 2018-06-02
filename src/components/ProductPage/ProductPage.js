@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import React, { Component, Fragment } from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
 // import ProductGallery from '../products/productGallery';
-import Product from '../products/product';
+import Product from "../products/product";
 
 class ProductPage extends Component {
 	showProduct() {

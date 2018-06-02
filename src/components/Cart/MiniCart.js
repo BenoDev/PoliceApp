@@ -9,11 +9,10 @@ import getCheckout from "../../apollo/client/queries/getCheckout";
 
 class MiniCart extends Component {
 	renderCartItems() {
-		console.log(this.props);
+		console.log(this.props.checkout, "Mini cart");
 		if (!this.props.checkout.id) {
 			return <div>Server Error plese try again</div>;
-		}
-		if (this.props.checkout.lineItems.edges.length < 1) {
+		} else if (this.props.checkout.lineItems.edges.length < 1) {
 			return <div>Il tuo Carrello è vuoto</div>;
 		}
 

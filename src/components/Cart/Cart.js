@@ -40,7 +40,7 @@ class Cart extends Component {
 	};
 
 	renderCartItems() {
-		console.log(this.props);
+		console.log(this.props, "Carrello");
 		if (!this.props.checkout.id) {
 			return <div>Errore Caricamento Carrello</div>;
 		}
