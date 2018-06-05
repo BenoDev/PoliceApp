@@ -68,7 +68,7 @@ class NavbarFeatures extends React.Component {
                 toggle={this.toggle}
                 onMouseOver={this.onMouseOver}
               >
-                <DropdownToggle nav caret>
+                <DropdownToggle nav >
                   <Link to="/shop">Abbigliamento</Link>
                 </DropdownToggle>
                 <DropdownMenu>

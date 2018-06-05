@@ -98,6 +98,7 @@ class Cart extends Component {
 					</span>
 				</div>
 				<div>{this.renderCartItems()}</div>
+				<div><a href={this.props.checkout.webUrl}>Procedi con l'ordine</a></div>
 			</div>
 		);
 	}

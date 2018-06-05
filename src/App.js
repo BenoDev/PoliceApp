@@ -13,6 +13,9 @@ import Cart from "./components/Cart/Cart";
 import MiniCart from "./components/Cart/MiniCart";
 import Checkout from "./components/Checkout/Checkout";
 
+import LoginForm from "./components/Auth/loginForm";
+import SignupForm from "./components/Auth/signupForm";
+
 import { Query, graphql, compose, withApollo } from "react-apollo";
 
 import updateCheckout from "./apollo/client/mutations/updateCheckout";
@@ -38,18 +41,14 @@ class App extends Component {
 					id: JSON.parse(checkoutId)
 				}
 			});
+			console.log(res, "proviamo");
 
-			console.log(res.data, "res datadsa");
-
-			const resolverData = await this.props.updateCheckout({
-				variables: { checkout: { data: res.data.node } }
-			});
-
-			// const ayaya = await this.props.client.query({
-			// 	query: getCheckout
-			// });
-			// console.log(ayaya, "ayayaya");
-			return null;
+			if (res.data.node.id) {
+				const resolverData = await this.props.updateCheckout({
+					variables: { checkout: { data: res.data.node } }
+				});
+				return null;
+			}
 		}
 
 		const res = await this.props.createCheckout({
@@ -57,14 +56,12 @@ class App extends Component {
 		});
 		// console.log(res.data.checkoutCreate.checkout);
 		const data = res.data.checkoutCreate.checkout;
-		console.log(res, "Hieererdwee");
 
 		const resolverData = await this.props.updateCheckout({
 			variables: { checkout: { data } }
 		});
 
 		localStorage.setItem("checkoutId", JSON.stringify(data.id));
-		console.log(resolverData, "Hieerere");
 	};
 
 	render() {
@@ -85,6 +82,8 @@ class App extends Component {
 					<Route exact path="/product/:id" component={ProductPage} />
 					<Route exact path="/cart" component={Cart} />
 					<Route exact path="/checkout" component={Checkout} />
+					<Route exact path="/login" component={LoginForm} />
+					<Route exact path="/signup" component={SignupForm} />
 					<Footer />
 					}
 				</div>

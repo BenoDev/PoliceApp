@@ -1,29 +1,13 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
+import CheckoutFragment from "./checkoutFragment";
 
 export default gql`
 	mutation checkoutCreate($input: CheckoutCreateInput!) {
 		checkoutCreate(input: $input) {
 			checkout {
-				id
-				webUrl
-				lineItems(first: 5) {
-					edges {
-						node {
-							title
-							quantity
-							variant {
-								id
-								title
-								image {
-									id
-									originalSrc
-								}
-								price
-							}
-						}
-					}
-				}
+				...CheckoutFragment
 			}
 		}
 	}
+	${CheckoutFragment}
 `;

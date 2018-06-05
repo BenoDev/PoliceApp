@@ -2,14 +2,17 @@ import gql from "graphql-tag";
 import CheckoutFragment from "./checkoutFragment";
 
 export default gql`
-  mutation checkoutLineItemsUpdate(
+  mutation checkoutCustomerAssociate(
     $checkoutId: ID!
-    $lineItems: [CheckoutLineItemUpdateInput!]!
+    $customerAccessToken: String!
   ) {
-    checkoutLineItemsUpdate(checkoutId: $checkoutId, lineItems: $lineItems) {
+    checkoutCustomerAssociate(
+      checkoutId: $checkoutId
+      customerAccessToken: $customerAccessToken
+    ) {
       userErrors {
-        message
         field
+        message
       }
       checkout {
         ...CheckoutFragment
