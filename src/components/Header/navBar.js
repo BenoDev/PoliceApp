@@ -51,6 +51,14 @@ class NavbarFeatures extends React.Component {
   }
 
   render() {
+    let rightNav = <div>Loading</div>;
+
+    if (this.props.auth.token) {
+      rightNav = <div>{this.props.auth.customer.displayName}</div>;
+    } else {
+      rightNav = <div>Utente</div>;
+    }
+
     return (
       <Navbar color="green" light expand="md" scrolling>
         <NavbarBrand href="/">
@@ -68,9 +76,7 @@ class NavbarFeatures extends React.Component {
                 toggle={this.toggle}
                 onMouseOver={this.onMouseOver}
               >
-                <DropdownToggle nav >
-                  <Link to="/shop">Abbigliamento</Link>
-                </DropdownToggle>
+                <DropdownToggle nav>Abbigliamento</DropdownToggle>
                 <DropdownMenu>
                   <div onMouseLeave={this.onMouseLeave}>
                     <DropdownItem href="/shop/boots">Stivali</DropdownItem>
@@ -90,14 +96,15 @@ class NavbarFeatures extends React.Component {
           </NavbarNav>
           <NavbarNav right>
             <NavItem>
-              <form className="form-inline md-form mt-0">
-                <input
-                  className="form-control mr-sm-2 mb-0 text-white"
-                  type="text"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
+              {rightNav}
+              {/* <form className="form-inline md-form mt-0">
+                             <input
+                               className="form-control mr-sm-2 mb-0 text-white"
+                               type="text"
+                               placeholder="Search"
+                               aria-label="Search"
+                             />
+                           </form>*/}
             </NavItem>
           </NavbarNav>
         </Collapse>

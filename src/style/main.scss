@@ -1,24 +1,25 @@
-@import 'base';
-@import 'layout';
-@import 'components/header';
-@import 'components/heroSection';
-@import 'components/featureSection';
-@import 'components/categoriesSection';
-@import 'components/footer';
+@import "base";
+@import "layout";
+@import "components/header";
+@import "components/heroSection";
+@import "components/featureSection";
+@import "components/categoriesSection";
+@import "components/footer";
 
 //Shop Style
-@import 'components/productPreview';
-@import 'components/shop';
+@import "components/productPreview";
+@import "components/shop";
 
 //Product Page
-@import 'components/productPage';
-@import 'components/product';
+@import "components/productPage";
+@import "components/product";
 // @import 'components/productGallery';
 
 //React-image-gallery
-@import 'node_modules/react-image-gallery/styles/scss/image-gallery.scss';
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
 
 //Cart
-@import 'components/cart';
+@import "components/cart";
 
-
+//Auth
+@import "components/auth";

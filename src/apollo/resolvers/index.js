@@ -1,9 +1,11 @@
 import UpdateCheckoutResolver from './updateCheckoutResolver';
-import switchCartResolver from './switchCartResolver';
+import SwitchCartResolver from './switchCartResolver';
+import CustomerAuthResolver from './customerAuthResolver';
 
 export default {
 	Mutation: {
 		updateCheckout: UpdateCheckoutResolver,
-		switchCart : switchCartResolver
+		switchCart : SwitchCartResolver,
+		customerAuth: CustomerAuthResolver
 	}
 };

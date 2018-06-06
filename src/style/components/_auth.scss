@@ -1,0 +1,41 @@
+.login {
+	font-size: 1.2rem;
+	text-align: center;
+
+	&__form {
+		text-align: right;
+		background-color: #ccc;
+		display: inline-block;
+		padding: 2rem;
+		margin-bottom: 2rem;
+		border-radius: 3px;
+	}
+	&__input {
+		width: 20rem;
+		border-radius: 2px;
+	}
+
+	&__label {
+		display: block;
+		margin-bottom: 2rem;
+	}
+	&__button {
+		display: block;
+		margin: 0 auto;
+		padding: 0.7rem 2.1rem;
+		margin-bottom: 1rem;
+	}
+	&__error {
+		text-align: center;
+		color: red;
+	}
+
+	&__forgot {
+		text-align: center;
+
+		a:link,
+		a:visited {
+			text-decoration: none;
+		}
+	}
+}

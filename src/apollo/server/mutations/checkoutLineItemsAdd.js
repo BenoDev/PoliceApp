@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import CheckoutFragment from "./checkoutFragment";
+import CheckoutFragment from "../fragment/checkoutFragment";
 
 export default gql`
   mutation checkoutLineItemsAdd(

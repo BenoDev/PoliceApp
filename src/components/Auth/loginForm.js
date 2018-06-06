@@ -5,6 +5,7 @@ import { compose, graphql } from "react-apollo";
 import getCheckout from "../../apollo/client/queries/getCheckout";
 import customerAccesTokenCreate from "../../apollo/server/mutations/customerAccessTokenCreate";
 import checkoutCustomerAssociate from "../../apollo/server/mutations/checkoutCustomerAssociate";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
 	onLoginSubmit = async (values, { setSubmitting, setErrors }) => {
@@ -17,10 +18,11 @@ class LoginForm extends Component {
 			variables: { input }
 		});
 
-		const customerAccessToken =
-			res.data.customerAccessTokenCreate.customerAccessToken.accessToken;
+		if (res.data.customerAccessTokenCreate.customerAccessToken) {
+			const customerAccessToken =
+				res.data.customerAccessTokenCreate.customerAccessToken
+					.accessToken;
 
-		if (customerAccessToken) {
 			await this.props.checkoutCustomerAssociate({
 				variables: {
 					checkoutId: this.props.checkout.id,
@@ -32,17 +34,23 @@ class LoginForm extends Component {
 				"auth-token",
 				JSON.stringify(customerAccessToken)
 			);
+			setSubmitting(false);
+
+			//redirect to home page
+			this.props.history.push("/");
 		} else {
-			res.data.customerAccessTokenCreate.userErrors.forEach(error => {
-				console.log(error);
-			});
+			// res.data.customerAccessTokenCreate.userErrors.forEach(error => {
+			// 	console.log(error);
+			// });
+			setErrors({ password: "Username e/o password non corretti" });
+			setSubmitting(false);
 		}
 	};
 
 	render() {
 		return (
-			<div>
-				<h1>Sign In</h1>
+			<div className="login">
+				<h1>Registrati </h1>
 				{/*
       The benefit of the render prop approach is that you have full access to React's
       state, props, and composition model. Thus there is no need to map outer props
@@ -84,11 +92,12 @@ class LoginForm extends Component {
 						handleSubmit,
 						isSubmitting
 					}) => (
-						<form onSubmit={handleSubmit}>
-							<label>
+						<form className="login__form" onSubmit={handleSubmit}>
+							<label className="login__label">
 								{"Email: "}
 
 								<input
+									className="login__input"
 									type="email"
 									name="email"
 									onChange={handleChange}
@@ -97,19 +106,41 @@ class LoginForm extends Component {
 								/>
 							</label>
 							{touched.email &&
-								errors.email && <div>{errors.email}</div>}
-							<input
-								type="password"
-								name="password"
-								onChange={handleChange}
-								onBlur={handleBlur}
-								value={values.password}
-							/>
+								errors.email && (
+									<div className="login__error">
+										{errors.email}
+									</div>
+								)}
+							<label className="login__label">
+								{"Password: "}
+
+								<input
+									className="login__input"
+									type="password"
+									name="password"
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.password}
+								/>
+							</label>
 							{touched.password &&
-								errors.password && <div>{errors.password}</div>}
-							<button type="submit" disabled={isSubmitting}>
+								errors.password && (
+									<div className="login__error">
+										{errors.password}
+									</div>
+								)}
+							<button
+								className="login__button"
+								type="submit"
+								disabled={isSubmitting}
+							>
 								Submit
 							</button>
+							<div className="login__forgot">
+								<Link to="/forgotpassword">
+									Hai dimenticato la password?
+								</Link>
+							</div>
 						</form>
 					)}
 				/>
@@ -120,7 +151,9 @@ class LoginForm extends Component {
 
 export default compose(
 	graphql(customerAccesTokenCreate, { name: "customerAccesTokenCreate" }),
-	graphql(checkoutCustomerAssociate, { name: "checkoutCustomerAssociate" }),
+	graphql(checkoutCustomerAssociate, {
+		name: "checkoutCustomerAssociate"
+	}),
 	graphql(getCheckout, {
 		props: ({ data: { checkout } }) => ({
 			checkout

@@ -8,5 +8,10 @@ export default {
 	cart: {
 		__typename: "Cart",
 		isOpen: true
+	},
+	auth: {
+		__typename: "Auth",
+		token: null,
+		customer: null
 	}
 };
