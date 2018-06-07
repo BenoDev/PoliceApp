@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import loginCustomer from "../../utils/loginCustomer";
 import { Formik } from "formik";
-import { compose, graphql } from "react-apollo";
+import { compose, graphql, withApollo } from "react-apollo";
 import getCheckout from "../../apollo/client/queries/getCheckout";
 import customerAccesTokenCreate from "../../apollo/server/mutations/customerAccessTokenCreate";
 import checkoutCustomerAssociate from "../../apollo/server/mutations/checkoutCustomerAssociate";
+
+import setCustomer from "../../apollo/client/mutations/setCustomer";
+import getCustomer from "../../apollo/server/queries/getCustomer";
+
 import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
@@ -30,10 +34,35 @@ class LoginForm extends Component {
 				}
 			});
 
+			await this.props.setCustomer({
+				variables: {
+					token: customerAccessToken,
+					customer: res.data.customer
+				}
+			});
+
 			localStorage.setItem(
 				"auth-token",
 				JSON.stringify(customerAccessToken)
 			);
+
+			const resCustomer = await this.props.client.query({
+				query: getCustomer,
+				variables: {
+					customerAccessToken: customerAccessToken
+				}
+			});
+
+			console.log(resCustomer, "REs Customer");
+
+			await this.props.client.mutate({
+				mutation: setCustomer,
+				variables: {
+					customer: resCustomer.data.customer,
+					token: customerAccessToken
+				}
+			});
+
 			setSubmitting(false);
 
 			//redirect to home page
@@ -149,14 +178,17 @@ class LoginForm extends Component {
 	}
 }
 
-export default compose(
-	graphql(customerAccesTokenCreate, { name: "customerAccesTokenCreate" }),
-	graphql(checkoutCustomerAssociate, {
-		name: "checkoutCustomerAssociate"
-	}),
-	graphql(getCheckout, {
-		props: ({ data: { checkout } }) => ({
-			checkout
+export default withApollo(
+	compose(
+		graphql(customerAccesTokenCreate, { name: "customerAccesTokenCreate" }),
+		graphql(setCustomer, { name: "setCustomer" }),
+		graphql(checkoutCustomerAssociate, {
+			name: "checkoutCustomerAssociate"
+		}),
+		graphql(getCheckout, {
+			props: ({ data: { checkout } }) => ({
+				checkout
+			})
 		})
-	})
-)(LoginForm);
+	)(LoginForm)
+);

@@ -13,6 +13,8 @@ import {
   DropdownItem
 } from "mdbreact";
 import { Link } from "react-router-dom";
+import { compose, graphql } from "react-apollo";
+import getAuth from "../../apollo/client/queries/getAuthToken";
 
 class NavbarFeatures extends React.Component {
   constructor(props) {
@@ -53,7 +55,7 @@ class NavbarFeatures extends React.Component {
   render() {
     let rightNav = <div>Loading</div>;
 
-    if (this.props.auth.token) {
+    if (this.props.auth.token && this.props.auth.customer) {
       rightNav = <div>{this.props.auth.customer.displayName}</div>;
     } else {
       rightNav = <div>Utente</div>;
@@ -113,4 +115,10 @@ class NavbarFeatures extends React.Component {
   }
 }
 
-export default NavbarFeatures;
+export default compose(
+  graphql(getAuth, {
+    props: ({ data: { auth } }) => ({
+      auth
+    })
+  })
+)(NavbarFeatures);

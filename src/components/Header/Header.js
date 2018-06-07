@@ -4,7 +4,7 @@ import NavBar from "./navBar";
 import { Link } from "react-router-dom";
 
 export default props => {
-	return <NavBar auth={props.auth} />;
+	return <NavBar />;
 
 	// console.log(props,'Header')
 	// return (

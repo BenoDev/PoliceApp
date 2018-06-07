@@ -107,10 +107,7 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<div className="container">
-					<Header
-						switchCart={this.props.switchCart}
-						auth={this.props.auth}
-					/>
+					<Header switchCart={this.props.switchCart} />
 					{this.props.cart.isOpen ? (
 						<MiniCart switchCart={this.props.switchCart} />
 					) : null}

@@ -20,22 +20,25 @@ class SignupForm extends Component {
     if (res.data.customerCreate.customer) {
       console.log(res.data.customerCreate.customer, "Customer creato");
     } else {
-      res.data.customerCreate.userErrors.forEach(error => {
-        if (error.field) {
-          console.log(error.field);
-        } else {
-          console.log(error.message);
-        }
-      });
+      setErrors({ passwordConfirm: "Email già in uso" });
+      setSubmitting(false);
+
+      // res.data.customerCreate.userErrors.forEach(error => {
+      //   if (error.field) {
+      //     console.log(error.field);
+      //   } else {
+      //     console.log(error.message);
+      //   }
+      // });
     }
 
     console.log(input, "Signup");
   };
   render() {
     return (
-      <div>
+      <div className="login">
         <h1>Registrazione</h1>
-        <p>This can be anywhere in your application</p>
+
         {/*
       The benefit of the render prop approach is that you have full access to React's
       state, props, and composition model. Thus there is no need to map outer props
@@ -84,25 +87,28 @@ class SignupForm extends Component {
             handleSubmit,
             isSubmitting
           }) => (
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Email:
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
-                </label>
-                {touched.email && errors.email && <div>{errors.email}</div>}
-              </div>
+            <form className="login__form" onSubmit={handleSubmit}>
+              <label className="login__label">
+                Email:
+                <input
+                  className="login__input"
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
+              </label>
+              {touched.email &&
+                errors.email && (
+                  <div className="login__error">{errors.email}</div>
+                )}
 
               <div>
-                <label>
+                <label className="login__label">
                   Password:
                   <input
+                    className="login__input"
                     type="password"
                     name="password"
                     onChange={handleChange}
@@ -110,13 +116,16 @@ class SignupForm extends Component {
                     value={values.password}
                   />
                   {touched.password &&
-                    errors.password && <div>{errors.password}</div>}
+                    errors.password && (
+                      <div className="login__error">{errors.password}</div>
+                    )}
                 </label>
               </div>
               <div>
-                <label>
+                <label className="login__label">
                   Conferma password:
                   <input
+                    className="login__input"
                     type="password"
                     name="passwordConfirm"
                     onChange={handleChange}
@@ -125,13 +134,19 @@ class SignupForm extends Component {
                   />
                   {touched.passwordConfirm &&
                     errors.passwordConfirm && (
-                      <div>{errors.passwordConfirm}</div>
+                      <div className="login__error">
+                        {errors.passwordConfirm}
+                      </div>
                     )}
                 </label>
               </div>
 
               <div>
-                <button type="submit" disabled={isSubmitting}>
+                <button
+                  className="login__button"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
                   Submit
                 </button>
               </div>

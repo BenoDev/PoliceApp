@@ -17,7 +17,6 @@
 
 	&__label {
 		display: block;
-		margin-bottom: 2rem;
 	}
 	&__button {
 		display: block;
@@ -28,6 +27,7 @@
 	&__error {
 		text-align: center;
 		color: red;
+		margin: 0.5rem 0;
 	}
 
 	&__forgot {
